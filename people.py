@@ -46,9 +46,8 @@ def create(person):
             "lname" : lname,
             "timestamp" : get_timestamp()
     }
-        return make_response(
-            f"{fname} successfully created", 201
-        )
+        return PEOPLE[fname]
+
     else:
         abort(
             406,
