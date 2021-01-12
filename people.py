@@ -1,7 +1,8 @@
 from datetime import datetime
 
-from flask import make_response
+from flask import make_response, request
 from werkzeug.exceptions import abort
+import json
 
 
 def get_timestamp():
@@ -32,8 +33,10 @@ def read():
 
 
 def create(person):
+
     """This function creates a new person in the people list
         based on the passed in person data"""
+
     lname = person.get("lname")
     fname = person.get("fname")
 

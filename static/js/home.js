@@ -2,7 +2,6 @@
 
 $.get('/api/people', (res) => {
         for (const person of res)
-//        $("#body").append(`<h3> ${person.fname} </h3>`)
         $("#body").append(`<tr>
                             <td>${person.fname}</td>
                             <td>${person.lname}</td>
@@ -11,30 +10,26 @@ $.get('/api/people', (res) => {
         }
 )
 
+function create_new_user(evt) {
+    evt.preventDefault();
 
-//            <table>
-//                <caption>People</caption>
-//                <thead>
-//                    <tr>
-//                        <th>First Name</th>
-//                        <th>Last Name</th>
-//                        <th>Update Time</th>
-//                    </tr>
-//                </thead>
-//                <tbody id="body">
-//                </tbody>
-//            </table>
+    const formInputs = {
+        'fname' : $("#fname").val(),
+        'lname' : $("#lname").val(),
+    }
 
-//<table>
-//    <thead>
-//        <tr>
-//            <th colspan="2">The table header</th>
-//        </tr>
-//    </thead>
-//    <tbody>
-//        <tr>
-//            <td>The table body</td>
-//            <td>with two columns</td>
-//        </tr>
-//    </tbody>
-//</table>
+    const person = JSON.stringify(formInputs)
+
+    $.ajax({
+        type: "POST",
+        url: '/api/people',
+        data: person,
+        success: (res) => {
+            console.log("Created new person")
+            console.log(res)
+        },
+        dataType: "json",
+        headers: {"Content-Type" : "application/json"},
+    });
+
+$("#create").on("click", create_new_user)
